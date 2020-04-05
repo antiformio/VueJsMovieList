@@ -31,13 +31,19 @@
               </td>
               <td>
                 <div class="btn-group" role="group">
-                  <button type="button"
+                  <button
+                  type="button"
                   class="btn btn-warning btn-sm"
                   v-b-modal.movie-update-modal
                   @click="editMovie(movie)">
                   Modificar
                   </button>
-                  <button type="button" class="btn btn-danger btn-sm">Apagar</button>
+                  <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  @click="onDeleteMovie(movie)">
+                  Apagar
+                  </button>
                 </div>
               </td>
             </tr>
@@ -205,7 +211,6 @@ export default {
       this.$refs.editMovieModal.hide();
       let saw = false;
       if (this.editForm.saw[0]) saw = true;
-      console.log(saw);
       const payload = {
         title: this.editForm.title,
         author: this.editForm.author,
@@ -232,6 +237,23 @@ export default {
       this.$refs.editMovieModal.hide();
       this.initForm();
       this.getMovies();
+    },
+    removeMovie(movieID) {
+      const path = `http://localhost:5000/filmes/${movieID}`;
+      axios.delete(path)
+        .then(() => {
+          this.getMovies();
+          this.message = 'Filme Apagado!';
+          this.showMessage = true;
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+          this.getMovies();
+        });
+    },
+    onDeleteMovie(movie) {
+      this.removeMovie(movie.id);
     },
   },
   created() {
