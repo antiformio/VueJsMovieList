@@ -14,8 +14,8 @@
             <tr>
               <th scope="col">Titulo</th>
               <th scope="col">Autor</th>
+              <th scope="col">IMDB</th>
               <th scope="col">Visto?</th>
-              <th scope="col">Nota</th>
               <th></th>
             </tr>
           </thead>
@@ -24,10 +24,11 @@
               <td>{{ movie.title }}</td>
               <td>{{ movie.author }}</td>
               <td>
-                <span v-if="movie.saw">Sim</span>
-                <span v-else>Nao</span>
+                <imdb :title="movie.title"></imdb>
               </td>
               <td>
+                <span v-if="movie.saw">Sim</span>
+                <span v-else>Nao</span>
               </td>
               <td>
                 <div class="btn-group" role="group">
@@ -127,6 +128,7 @@
 <script>
 import axios from 'axios';
 import Alert from '@/components/Alert.vue';
+import Imdb from '@/components/Imdb.vue';
 
 export default {
   data() {
@@ -149,6 +151,7 @@ export default {
   },
   components: {
     alert: Alert,
+    imdb: Imdb,
   },
   methods: {
     getMovies() {

@@ -30,11 +30,12 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 def ping_pong():
     return jsonify("PONG MODAFUCKA!")
 
+
 # Add and fetch movies
 @app.route("/filmes", methods=["GET", "POST"])
 def all_movies():
     response_object = {"status": "success"}
-    
+
     # Add movies
     if request.method == "POST":
         post_data = request.get_json()
@@ -54,22 +55,24 @@ def all_movies():
 
 
 # Update and Delete Movies
-@app.route('/filmes/<movie_id>', methods=['PUT', 'DELETE'])
+@app.route("/filmes/<movie_id>", methods=["PUT", "DELETE"])
 def single_movie(movie_id):
-    response_object = {'status': 'success'}
-    if request.method == 'PUT':
+    response_object = {"status": "success"}
+    if request.method == "PUT":
         post_data = request.get_json()
         remove_movie(movie_id)
-        MOVIES.append({
-            'id': uuid.uuid4().hex,
-            'title': post_data.get('title'),
-            'author': post_data.get('author'),
-            'saw': post_data.get('saw')
-        })
-        response_object['message'] = 'Filme Actualizado!'
-    if request.method == 'DELETE':
+        MOVIES.append(
+            {
+                "id": uuid.uuid4().hex,
+                "title": post_data.get("title"),
+                "author": post_data.get("author"),
+                "saw": post_data.get("saw"),
+            }
+        )
+        response_object["message"] = "Filme Actualizado!"
+    if request.method == "DELETE":
         remove_movie(movie_id)
-        response_object['message'] = 'Filme Apagado!'
+        response_object["message"] = "Filme Apagado!"
     return jsonify(response_object)
 
 
