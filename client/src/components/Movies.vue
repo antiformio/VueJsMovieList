@@ -13,22 +13,30 @@
           <thead>
             <tr>
               <th scope="col">Titulo</th>
-              <th scope="col">Autor</th>
+              <th scope="col">Director</th>
               <th scope="col">IMDB</th>
               <th scope="col">Visto?</th>
+              <th scope="col">Plataforma</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="movie in movies" :key="movie">
+            <tr v-for="movie in movies" :key="movie.id">
               <td>{{ movie.title }}</td>
               <td>{{ movie.author }}</td>
               <td>
                 <imdb :title="movie.title"></imdb>
               </td>
               <td>
-                <span v-if="movie.saw">Sim</span>
-                <span v-else>Nao</span>
+                <span v-if="movie.saw">
+                  <font-awesome-icon icon="check" />
+                </span>
+                <span v-else>
+                  <font-awesome-icon icon="times" />
+                </span>
+              </td>
+              <td>
+                <netflix :title="movie.title"></netflix>
               </td>
               <td>
                 <div class="btn-group" role="group">
@@ -129,6 +137,7 @@
 import axios from 'axios';
 import Alert from '@/components/Alert.vue';
 import Imdb from '@/components/Imdb.vue';
+import NetflixCheck from '@/components/NetflixCheck.vue';
 
 export default {
   data() {
@@ -152,6 +161,7 @@ export default {
   components: {
     alert: Alert,
     imdb: Imdb,
+    netflix: NetflixCheck,
   },
   methods: {
     getMovies() {
@@ -264,3 +274,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.btn {
+  margin: 5px;
+}
+</style>
