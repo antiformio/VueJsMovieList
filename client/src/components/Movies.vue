@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(movie, index) in movies" :key="index">
+            <tr v-for="movie in movies" :key="movie">
               <td>{{ movie.title }}</td>
               <td>{{ movie.author }}</td>
               <td>
