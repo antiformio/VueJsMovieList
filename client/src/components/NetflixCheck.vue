@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <img class="netflix-logo" src="@/assets/netflix.png"/>
+    <div v-if="hasIt">
+      <a v-bind:href="url">
+        <img class="netflix-logo" src="@/assets/netflix.png" />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -15,7 +19,7 @@ export default {
   data() {
     return {
       searchTitle: '',
-      hasIt: Boolean,
+      hasIt: false,
       url: '',
     };
   },
@@ -36,9 +40,9 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res.data.results[0].locations);
-          if (res.data.results[0].locations){
-              iterateArray(res.data.results[0].locations);
+          if (res.data.results[0].locations) {
+            console.log(res.data);
+            this.iterateArray(res.data.results[0].locations);
           }
         })
         .catch((error) => {
@@ -46,13 +50,18 @@ export default {
         });
     },
     iterateArray(locations) {
-      locations.forEach(function (arrayItem) {
-        const netflixSpain = 'NetflixIVAES';
-        if (arrayItem.name === netflixSpain) {
-            this.hasIt = true;
-            this.url = arrayItem.url;
+      locations.forEach((arrayItem) => {
+        const netflixSpain = 'Netflix';
+        console.log(arrayItem.display_name);
+
+        if (arrayItem.display_name === netflixSpain) {
+          this.hasIt = true;
+          this.url = arrayItem.url;
+        } else {
+          this.hasIt = false;
+          this.url = null;
         }
-        },
+      });
     },
   },
   created() {
@@ -63,7 +72,7 @@ export default {
 
 <style scoped>
 .netflix-logo {
-    width: 35px;
-    height: 35px;
+  width: 35px;
+  height: 35px;
 }
 </style>

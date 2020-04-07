@@ -1,21 +1,21 @@
 <template>
   <div class="container">
     <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Ano</th>
-                <th scope="col">Nota</th>
-                <th scope="col">Genero</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <td>{{ ano }}</td>
-            <td>{{ nota }}</td>
-            <td>{{ genero }}</td>
-            </tr>
-        </tbody>
+      <thead>
+        <tr>
+          <th scope="col">Ano</th>
+          <th scope="col">Nota</th>
+          <th scope="col">Genero</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ ano }}</td>
+          <td>{{ nota }}</td>
+          <td>{{ genero }}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
@@ -42,7 +42,8 @@ export default {
     },
     getFilme() {
       const path = `http://www.omdbapi.com/?apikey=77ad7f8d&t=${this.searchTitle}`;
-      axios.get(path)
+      axios
+        .get(path)
         .then((res) => {
           this.ano = res.data.Year;
           this.genero = res.data.Genre;

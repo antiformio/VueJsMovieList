@@ -3,12 +3,15 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>Filmes</h1>
-        <hr><br><br>
-        <alert :message=message v-if="showMessage"></alert>
+        <hr />
+        <br />
+        <br />
+        <alert :message="message" v-if="showMessage"></alert>
         <button type="button" class="btn btn-success btn-sm" v-b-modal.movie-modal>
-        Adicionar Filme
+          Adicionar Filme
         </button>
-        <br><br>
+        <br />
+        <br />
         <table class="table table-hover">
           <thead>
             <tr>
@@ -41,18 +44,14 @@
               <td>
                 <div class="btn-group" role="group">
                   <button
-                  type="button"
-                  class="btn btn-warning btn-sm"
-                  v-b-modal.movie-update-modal
-                  @click="editMovie(movie)">
-                  Modificar
+                    type="button"
+                    class="btn btn-warning btn-sm"
+                    v-b-modal.movie-update-modal
+                    @click="editMovie(movie)"
+                  >
+                    Modificar
                   </button>
-                  <button
-                  type="button"
-                  class="btn btn-danger btn-sm"
-                  @click="onDeleteMovie(movie)">
-                  Apagar
-                  </button>
+                  <button type="button" class="btn btn-danger btn-sm" @click="onDeleteMovie(movie)">Apagar</button>
                 </div>
               </td>
             </tr>
@@ -60,101 +59,91 @@
         </table>
       </div>
     </div>
-    <b-modal ref="addMovieModal"
-         id="movie-modal"
-         title="Adicionar novo filme"
-         hide-footer>
-    <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-    <b-form-group id="form-title-group"
-                label="Title:"
-                label-for="form-title-input">
-                  <b-form-input id="form-title-input"
-                            type="text"
-                            v-model="addMovieForm.title"
-                            required
-                            placeholder="Introduz o titulo">
-                  </b-form-input>
-    </b-form-group>
-    <b-form-group id="form-author-group"
-                  label="Author:"
-                  label-for="form-author-input">
-                  <b-form-input id="form-author-input"
-                                type="text"
-                                v-model="addMovieForm.author"
-                                required
-                                placeholder="Introduz autor">
-                  </b-form-input>
-    </b-form-group>
-    <b-form-group id="form-saw-group">
-      <b-form-checkbox-group v-model="addMovieForm.saw" id="form-checks">
-        <b-form-checkbox value="true">Visto?</b-form-checkbox>
-      </b-form-checkbox-group>
-    </b-form-group>
-    <b-button type="submit" variant="primary">Submeter</b-button>
-    <b-button type="reset" variant="danger">Reset</b-button>
-  </b-form>
-</b-modal>
-<b-modal ref="editMovieModal"
-         id="movie-update-modal"
-         title="Update"
-         hide-footer>
-  <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
-  <b-form-group id="form-title-edit-group"
-                label="Titulo:"
-                label-for="form-title-edit-input">
-      <b-form-input id="form-title-edit-input"
-                    type="text"
-                    v-model="editForm.title"
-                    required
-                    placeholder="Introduza o titulo">
-      </b-form-input>
-    </b-form-group>
-    <b-form-group id="form-author-edit-group"
-                  label="Autor:"
-                  label-for="form-author-edit-input">
-        <b-form-input id="form-author-edit-input"
-                      type="text"
-                      v-model="editForm.author"
-                      required
-                      placeholder="Introduza autor">
-        </b-form-input>
-      </b-form-group>
-    <b-form-group id="form-read-edit-group">
-      <b-form-checkbox-group v-model="editForm.saw" id="form-checks">
-        <b-form-checkbox value="true">Visto?</b-form-checkbox>
-      </b-form-checkbox-group>
-    </b-form-group>
-    <b-button-group>
-      <b-button type="submit" variant="primary">Actualizar</b-button>
-      <b-button type="reset" variant="danger">Cancelar</b-button>
-    </b-button-group>
-  </b-form>
-</b-modal>
+    <b-modal ref="addMovieModal" id="movie-modal" title="Adicionar novo filme" hide-footer>
+      <b-form @submit="onSubmit" @reset="onReset" class="w-100">
+        <b-form-group id="form-title-group" label="Title:" label-for="form-title-input">
+          <b-form-input
+            id="form-title-input"
+            type="text"
+            v-model="addMovieForm.title"
+            required
+            placeholder="Introduz o titulo"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="form-author-group" label="Author:" label-for="form-author-input">
+          <b-form-input
+            id="form-author-input"
+            type="text"
+            v-model="addMovieForm.author"
+            required
+            placeholder="Introduz autor"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="form-saw-group">
+          <b-form-checkbox-group v-model="addMovieForm.saw" id="form-checks">
+            <b-form-checkbox value="true">Visto?</b-form-checkbox>
+          </b-form-checkbox-group>
+        </b-form-group>
+        <b-button type="submit" variant="primary">Submeter</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
+      </b-form>
+    </b-modal>
+    <b-modal ref="editMovieModal" id="movie-update-modal" title="Update" hide-footer>
+      <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
+        <b-form-group id="form-title-edit-group" label="Titulo:" label-for="form-title-edit-input">
+          <b-form-input
+            id="form-title-edit-input"
+            type="text"
+            v-model="editForm.title"
+            required
+            placeholder="Introduza o titulo"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="form-author-edit-group" label="Autor:" label-for="form-author-edit-input">
+          <b-form-input
+            id="form-author-edit-input"
+            type="text"
+            v-model="editForm.author"
+            required
+            placeholder="Introduza autor"
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group id="form-read-edit-group">
+          <b-form-checkbox-group v-model="editForm.saw" id="form-checks">
+            <b-form-checkbox value="true">Visto?</b-form-checkbox>
+          </b-form-checkbox-group>
+        </b-form-group>
+        <b-button-group>
+          <b-button type="submit" variant="primary">Actualizar</b-button>
+          <b-button type="reset" variant="danger">Cancelar</b-button>
+        </b-button-group>
+      </b-form>
+    </b-modal>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Alert from '@/components/Alert.vue';
-import Imdb from '@/components/Imdb.vue';
-import NetflixCheck from '@/components/NetflixCheck.vue';
+import axios from "axios";
+import Alert from "@/components/Alert.vue";
+import Imdb from "@/components/Imdb.vue";
+import NetflixCheck from "@/components/NetflixCheck.vue";
 
 export default {
   data() {
     return {
       movies: [],
       addMovieForm: {
-        title: '',
-        author: '',
+        title: "",
+        author: "",
         saw: [],
       },
       editForm: {
-        id: '',
-        title: '',
-        author: '',
+        id: "",
+        title: "",
+        author: "",
         saw: [],
       },
-      message: '',
+      message: "",
       showMessage: false,
     };
   },
@@ -165,8 +154,9 @@ export default {
   },
   methods: {
     getMovies() {
-      const path = 'http://localhost:5000/filmes';
-      axios.get(path)
+      const path = "http://localhost:5000/filmes";
+      axios
+        .get(path)
         .then((res) => {
           this.movies = res.data.movies;
         })
@@ -176,11 +166,12 @@ export default {
         });
     },
     addMovie(payload) {
-      const path = 'http://localhost:5000/filmes';
-      axios.post(path, payload)
+      const path = "http://localhost:5000/filmes";
+      axios
+        .post(path, payload)
         .then(() => {
           this.getMovies();
-          this.message = 'Filme Adicionado!';
+          this.message = "Filme Adicionado!";
           this.showMessage = true;
         })
         .catch((error) => {
@@ -190,12 +181,12 @@ export default {
         });
     },
     initForm() {
-      this.addMovieForm.title = '';
-      this.addMovieForm.author = '';
+      this.addMovieForm.title = "";
+      this.addMovieForm.author = "";
       this.addMovieForm.saw = [];
-      this.editForm.id = '';
-      this.editForm.title = '';
-      this.editForm.author = '';
+      this.editForm.id = "";
+      this.editForm.title = "";
+      this.editForm.author = "";
       this.editForm.saw = [];
     },
     onSubmit(evt) {
@@ -233,10 +224,11 @@ export default {
     },
     updateMovie(payload, movieID) {
       const path = `http://localhost:5000/filmes/${movieID}`;
-      axios.put(path, payload)
+      axios
+        .put(path, payload)
         .then(() => {
           this.getMovies();
-          this.message = 'Filme actualizado!';
+          this.message = "Filme actualizado!";
           this.showMessage = true;
         })
         .catch((error) => {
@@ -253,10 +245,11 @@ export default {
     },
     removeMovie(movieID) {
       const path = `http://localhost:5000/filmes/${movieID}`;
-      axios.delete(path)
+      axios
+        .delete(path)
         .then(() => {
           this.getMovies();
-          this.message = 'Filme Apagado!';
+          this.message = "Filme Apagado!";
           this.showMessage = true;
         })
         .catch((error) => {
