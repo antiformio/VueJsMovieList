@@ -17,6 +17,7 @@
         </tr>
       </tbody>
     </table>
+    <i>"<b>{{ plot }}</b>"</i>
   </div>
 </template>
 
@@ -34,6 +35,8 @@ export default {
       ano: '',
       nota: '',
       genero: '',
+      plot: '',
+      poster: '',
     };
   },
   methods: {
@@ -45,9 +48,12 @@ export default {
       axios
         .get(path)
         .then((res) => {
+          console.log(res);
           this.ano = res.data.Year;
           this.genero = res.data.Genre;
           this.nota = res.data.imdbRating;
+          this.plot = res.data.Plot;
+          this.poster = res.data.Poster;
         })
         .catch((error) => {
           // eslint-disable-next-line
