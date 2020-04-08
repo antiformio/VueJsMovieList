@@ -29,6 +29,7 @@ module.exports = {
         ignoreHTMLTextContents: false,
       },
     ],
+    "object-shorthand": ["error", "never"],
   },
   globals: {
     $nuxt: true,

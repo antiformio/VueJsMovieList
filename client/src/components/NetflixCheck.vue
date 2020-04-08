@@ -41,7 +41,6 @@ export default {
       })
         .then((res) => {
           if (res.data.results[0].locations) {
-            console.log(res.data);
             this.iterateArray(res.data.results[0].locations);
           }
         })
@@ -52,7 +51,6 @@ export default {
     iterateArray(locations) {
       locations.forEach((arrayItem) => {
         const netflixSpain = 'Netflix';
-        console.log(arrayItem.display_name);
 
         if (arrayItem.display_name === netflixSpain) {
           this.hasIt = true;
@@ -64,7 +62,7 @@ export default {
       });
     },
   },
-  created() {
+  mounted() {
     this.checkIt();
   },
 };

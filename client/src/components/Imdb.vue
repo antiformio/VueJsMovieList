@@ -27,6 +27,7 @@ import axios from 'axios';
 export default {
   props: {
     title: String,
+    id: String,
   },
   name: 'Imdb',
   data() {
@@ -48,20 +49,23 @@ export default {
       axios
         .get(path)
         .then((res) => {
-          console.log(res);
           this.ano = res.data.Year;
           this.genero = res.data.Genre;
           this.nota = res.data.imdbRating;
           this.plot = res.data.Plot;
           this.poster = res.data.Poster;
+          this.passUrl();
         })
         .catch((error) => {
           // eslint-disable-next-line
           console.error(error);
         });
     },
+    passUrl() {
+      this.$emit('urlForCard', this.$props.id, this.poster);
+    },
   },
-  created() {
+  mounted() {
     this.fixString();
     this.getFilme();
   },

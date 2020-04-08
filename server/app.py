@@ -4,14 +4,15 @@ import uuid
 from flask_cors import CORS
 
 MOVIES = [
-    {"id": uuid.uuid4().hex, "title": "Farewell", "author": "chinesa", "saw": True},
+    {"id": uuid.uuid4().hex, "title": "Farewell", "author": "chinesa", "saw": True, "url": ""},
     {
         "id": uuid.uuid4().hex,
         "title": "Fear and loathing",
         "author": "J. K. Rowling",
         "saw": False,
+        "url": ""
     },
-    {"id": uuid.uuid4().hex, "title": "O poco", "author": "Dr. Seuss", "saw": True},
+    {"id": uuid.uuid4().hex, "title": "O poco", "author": "Dr. Seuss", "saw": True, "url": ""},
 ]
 
 # configuration

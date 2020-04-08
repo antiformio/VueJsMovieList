@@ -9,21 +9,28 @@
     <b-row>
       <b-card
         v-for="movie in movies"
-        :key="movie.id"
-        :title="movie.title"
-        img-src="https://picsum.photos/600/300/?image=25"
+        :key="movie"
+        :title="movie.title | capitalize"
+        :img-src="movie.url"
         img-alt="Image"
         img-top
         tag="article"
         style="max-width: 20rem;"
-        class="ml-2 mr-2"
+        class="ml-2 mr-2 mt-5"
       >
         <b-card-text>
           <div class="author mb-4">
             <b>Director: </b>
             <i>{{ movie.author }}</i>
           </div>
-          <imdb :title="movie.title"></imdb>
+
+          <imdb
+          :title="movie.title"
+          :id="movie.id"
+          :key="movie.url"
+          @urlForCard="urlForCard">
+          </imdb>
+
         </b-card-text>
 
         <b-card-text>
@@ -146,6 +153,13 @@ export default {
       showMessage: false,
     };
   },
+  filters: {
+    capitalize: (value) => {
+      if (!value) return '';
+      const res = value.toString();
+      return res.charAt(0).toUpperCase() + res.slice(1);
+    },
+  },
   components: {
     // alert: Alert,
     imdb: Imdb,
@@ -178,6 +192,8 @@ export default {
           console.log(error);
           this.getMovies();
         });
+
+      console.log(this.movies);
     },
     initForm() {
       this.addMovieForm.title = '';
@@ -260,6 +276,14 @@ export default {
     onDeleteMovie(movie) {
       this.removeMovie(movie.id);
     },
+    urlForCard(id, urlOfCover) {
+      const index = this.movies.findIndex((x) => x.id === id);
+      this.movies[index].url = urlOfCover;
+
+      // Not the best way of doing it...
+      // Force re-render whenever the :key from the v-card loop changes!
+      this.$forceUpdate();
+    },
   },
   created() {
     this.getMovies();
@@ -270,5 +294,8 @@ export default {
 <style scoped>
 .btn {
   margin: 5px;
+}
+
+.card-img-top {
 }
 </style>
