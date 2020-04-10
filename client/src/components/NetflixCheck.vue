@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class>
     <div v-if="hasIt">
-      <a v-bind:href="url">
+      <a v-bind:href="url" target="_blank">
         <img class="netflix-logo" src="@/assets/netflix.png" />
       </a>
     </div>

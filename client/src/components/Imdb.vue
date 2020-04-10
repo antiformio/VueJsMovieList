@@ -17,7 +17,7 @@
         </tr>
       </tbody>
     </table>
-    <i>"<b>{{ plot }}</b>"</i>
+    <i>"<b>{{ shortPlotDescription }}</b>"</i>
   </div>
 </template>
 
@@ -63,6 +63,12 @@ export default {
     },
     passUrl() {
       this.$emit('urlForCard', this.$props.id, this.poster);
+    },
+  },
+  computed: {
+    shortPlotDescription() {
+      // eslint-disable-next-line prefer-template
+      return this.plot.substring(0, 120) + '...';
     },
   },
   mounted() {

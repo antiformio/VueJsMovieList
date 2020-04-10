@@ -1,63 +1,70 @@
 <template>
   <div class="container">
-    <h1>Filmes</h1>
+    <jumbo></jumbo>
 
-    <button type="button" class="btn btn-success btn-sm" v-b-modal.movie-modal>
-      Adicionar Filme
-    </button>
+
     <br />
     <b-row>
-      <b-card
-        v-for="movie in movies"
-        :key="movie"
-        :title="movie.title | capitalize"
-        :img-src="movie.url"
-        img-alt="Image"
-        img-top
-        tag="article"
-        style="max-width: 20rem;"
-        class="ml-2 mr-2 mt-5"
-      >
-        <b-card-text>
-          <div class="author mb-4">
-            <b>Director: </b>
-            <i>{{ movie.author }}</i>
+      <div class="card-single" v-for="movie in movies" :key="movie.id">
+
+        <b-card
+          :title="movie.title | capitalize"
+          :img-src="movie.url"
+          img-alt="Image"
+          img-top
+          tag="article"
+          style="max-width: 20rem;"
+          class="ml-2 mr-2 mt-5"
+        >
+
+          <b-card-text>
+            <span v-if="movie.saw">
+              <h5><b-badge pill variant="success">Visto</b-badge></h5>
+            </span>
+
+            <span v-else>
+              <h5><b-badge pill variant="secondary">Por ver</b-badge></h5>
+            </span>
+          </b-card-text>
+
+          <b-card-text>
+            <div class="author mb-7">
+              <b>Director: </b>
+              <i>{{ movie.author }}</i>
+            </div>
+
+            <imdb
+            :title="movie.title"
+            :id="movie.id"
+            :key="movie.url"
+            @urlForCard="urlForCard">
+            </imdb>
+          </b-card-text>
+
+          <youtube class="mb-4 mt-4" :title="movie.title"></youtube>
+
+          <netflix class="mb-4" :title="movie.title"></netflix>
+
+          <div>
+            <b-button
+            pill
+            variant="outline-secondary"
+            size="sm"
+            v-b-modal.movie-update-modal @click="editMovie(movie)"
+            >Modificar
+            </b-button>
+
+            <b-button
+            pill
+            variant="outline-danger"
+            size="sm"
+            @click="onDeleteMovie(movie)"
+            >Apagar
+            </b-button>
+
           </div>
-
-          <imdb
-          :title="movie.title"
-          :id="movie.id"
-          :key="movie.url"
-          @urlForCard="urlForCard">
-          </imdb>
-
-        </b-card-text>
-
-        <b-card-text>
-          <b>Visto ? </b>
-          <span v-if="movie.saw">
-            <font-awesome-icon icon="check" />
-          </span>
-
-          <span v-else>
-            <font-awesome-icon icon="times" />
-          </span>
-        </b-card-text>
-
-
-        <netflix class="mb-4" :title="movie.title"></netflix>
-
-        <div class="btn-group" role="group">
-          <button type="button"
-            class="btn btn-warning btn-sm" v-b-modal.movie-update-modal @click="editMovie(movie)">
-            Modificar
-          </button>
-
-          <button type="button" class="btn btn-danger btn-sm" @click="onDeleteMovie(movie)">
-            Apagar
-          </button>
-        </div>
-      </b-card>
+        </b-card>
+      </div>
     </b-row>
 
     <b-modal ref="addMovieModal" id="movie-modal" title="Adicionar novo filme" hide-footer>
@@ -92,7 +99,7 @@
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </b-modal>
-    <b-modal ref="editMovieModal" id="movie-update-modal" title="Update" hide-footer>
+    <b-modal ref="editMovieModal" id="movie-update-modal" title="Modificar" hide-footer>
       <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
         <b-form-group id="form-title-edit-group" label="Titulo:" label-for="form-title-edit-input">
           <b-form-input
@@ -131,8 +138,10 @@
 <script>
 import axios from 'axios';
 // import Alert from '@/components/Alert.vue';
+import Header from '@/components/Header.vue';
 import Imdb from '@/components/Imdb.vue';
 import NetflixCheck from '@/components/NetflixCheck.vue';
+import YoutubeTrailer from '@/components/YoutubeTrailer.vue';
 
 export default {
   data() {
@@ -162,8 +171,10 @@ export default {
   },
   components: {
     // alert: Alert,
+    jumbo: Header,
     imdb: Imdb,
     netflix: NetflixCheck,
+    youtube: YoutubeTrailer,
   },
   methods: {
     getMovies() {
