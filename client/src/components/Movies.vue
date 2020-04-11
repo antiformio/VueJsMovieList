@@ -1,13 +1,15 @@
 <template>
   <div class="container">
-    <jumbo></jumbo>
+    <navBar @filter="filterMovies"></navBar>
 
 
     <br />
     <b-row>
       <div class="card-single" v-for="movie in movies" :key="movie.id">
 
-        <b-card
+        <b-card v-if="filterStatus === 'viewed' && movie.saw === true ||
+          filterStatus === 'notViewed' && movie.saw === false ||
+          filterStatus === null"
           :title="movie.title | capitalize"
           :img-src="movie.url"
           img-alt="Image"
@@ -41,7 +43,7 @@
             </imdb>
           </b-card-text>
 
-          <youtube class="mb-4 mt-4" :title="movie.title"></youtube>
+          <!--<youtube class="mb-4 mt-4" :title="movie.title"></youtube>-->
 
           <netflix class="mb-4" :title="movie.title"></netflix>
 
@@ -141,12 +143,13 @@ import axios from 'axios';
 import Header from '@/components/Header.vue';
 import Imdb from '@/components/Imdb.vue';
 import NetflixCheck from '@/components/NetflixCheck.vue';
-import YoutubeTrailer from '@/components/YoutubeTrailer.vue';
+// import YoutubeTrailer from '@/components/YoutubeTrailer.vue';
 
 export default {
   data() {
     return {
       movies: [],
+      filterStatus: null,
       addMovieForm: {
         title: '',
         author: '',
@@ -171,10 +174,10 @@ export default {
   },
   components: {
     // alert: Alert,
-    jumbo: Header,
+    navBar: Header,
     imdb: Imdb,
     netflix: NetflixCheck,
-    youtube: YoutubeTrailer,
+    // youtube: YoutubeTrailer,
   },
   methods: {
     getMovies() {
@@ -203,8 +206,6 @@ export default {
           console.log(error);
           this.getMovies();
         });
-
-      console.log(this.movies);
     },
     initForm() {
       this.addMovieForm.title = '';
@@ -295,8 +296,20 @@ export default {
       // Force re-render whenever the :key from the v-card loop changes!
       this.$forceUpdate();
     },
+    filterMovies(type) {
+      if (type === 'viewed') {
+        this.filterStatus = 'viewed';
+      } else {
+        // eslint-disable-next-line
+        if (type === 'notViewed') {
+          this.filterStatus = 'notViewed';
+        } else {
+          this.filterStatus = null;
+        }
+      }
+    },
   },
-  created() {
+  mounted() {
     this.getMovies();
   },
 };

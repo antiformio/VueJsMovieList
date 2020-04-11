@@ -11,16 +11,16 @@
         Adicionar Filme
         </b-button>
 
-        <b-dropdown
-        class="ml-4"
-        right text="Filtrar"
-        size="sm"
-        variant="primary"
-        @change="onChange($event)">
-            <b-dropdown-item active>Todos</b-dropdown-item>
-            <b-dropdown-item>Vistos</b-dropdown-item>
-            <b-dropdown-item>Por ver</b-dropdown-item>
-        </b-dropdown>
+        <b-select
+        class="ml-5"
+        v-model="selectedOption"
+        :options="sortOptions"
+        value-field="value"
+        text-field="text"
+        @change="sortBy">
+        </b-select>
+
+
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -50,23 +50,21 @@ export default {
   props: {
     title: String,
   },
-  name: 'YoutubeTrailer',
+  name: 'Header',
   data() {
     return {
-      url: '',
-      videoId: '',
+      selectedOption: null,
+      sortOptions: [
+        { text: 'Todos', value: null },
+        { text: 'Vistos', value: 'viewed' },
+        { text: 'Por Ver', value: 'notViewed' },
+      ],
     };
   },
   methods: {
-    onChange(event) {
-      console.log(event.target.value);
+    sortBy(sortType) {
+      this.$emit('filter', sortType);
     },
-  },
-  mounted() {
-    // eslint-disable-next-line
-    this.$root.$on('bv::dropdown::change', bvEvent => {
-      console.log('Dropdown is about to be shown', bvEvent);
-    });
   },
 };
 </script>
