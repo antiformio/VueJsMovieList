@@ -43,7 +43,7 @@
             </imdb>
           </b-card-text>
 
-          <!--<youtube class="mb-4 mt-4" :title="movie.title"></youtube>-->
+          <youtube class="mb-4 mt-4" :title="movie.title"></youtube>
 
           <netflix class="mb-4" :title="movie.title"></netflix>
 
@@ -143,7 +143,7 @@ import axios from 'axios';
 import Header from '@/components/Header.vue';
 import Imdb from '@/components/Imdb.vue';
 import NetflixCheck from '@/components/NetflixCheck.vue';
-// import YoutubeTrailer from '@/components/YoutubeTrailer.vue';
+import YoutubeTrailer from '@/components/YoutubeTrailer.vue';
 
 export default {
   data() {
@@ -177,7 +177,7 @@ export default {
     navBar: Header,
     imdb: Imdb,
     netflix: NetflixCheck,
-    // youtube: YoutubeTrailer,
+    youtube: YoutubeTrailer,
   },
   methods: {
     getMovies() {
