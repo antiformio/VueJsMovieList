@@ -1,37 +1,29 @@
-image: docker:stable
-services:
-  - docker:dind
+# build
+FROM node:11.12.0-alpine as build-vue
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY ./client/package*.json ./
+RUN npm install
+COPY ./client .
+RUN npm run build
 
-variables:
-  DOCKER_DRIVER: overlay
-  HEROKU_APP_NAME: rocky-spire-75626
-  CACHE_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
-  HEROKU_REGISTRY_IMAGE: registry.heroku.com/${HEROKU_APP_NAME}/web
-
-stages:
-  - build
-
-docker-build:
-  stage: build
-  script:
-    - apk add --no-cache curl
-    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker pull $CACHE_IMAGE:build-vue || true
-    - docker pull $CACHE_IMAGE:production || true
-    - docker build
-        --target build-vue
-        --cache-from $CACHE_IMAGE:build-vue
-        --tag $CACHE_IMAGE:build-vue
-        --file ./Dockerfile
-        "."
-    - docker build
-        --cache-from $CACHE_IMAGE:production
-        --tag $CACHE_IMAGE:production
-        --tag $HEROKU_REGISTRY_IMAGE
-        --file ./Dockerfile
-        "."
-    - docker push $CACHE_IMAGE:build-vue
-    - docker push $CACHE_IMAGE:production
-    - docker login -u _ -p $HEROKU_AUTH_TOKEN registry.heroku.com
-    - docker push $HEROKU_REGISTRY_IMAGE
-    - ./release.sh
+# production
+FROM nginx:stable-alpine as production
+WORKDIR /app
+RUN apk update && apk add --no-cache python3 && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
+    rm -r /root/.cache
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+COPY --from=build-vue /app/dist /usr/share/nginx/html
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./server/requirements.txt ./
+RUN pip install -r requirements.txt
+RUN pip install gunicorn
+COPY ./server .
+CMD gunicorn -b 0.0.0.0:5000 app:app --daemon && \
+      sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
+      nginx -g 'daemon off;'
