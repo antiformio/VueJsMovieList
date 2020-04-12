@@ -11,8 +11,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Movies',
       component: Movies,
+      meta: {
+        title: 'Filmes App - Filipe Martins',
+      },
+      name: 'Movies',
     },
     {
       path: '/ping',
