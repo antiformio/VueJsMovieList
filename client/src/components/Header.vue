@@ -31,8 +31,12 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Pesquisar</b-button>
+          <b-form-input
+          size="sm" class="mr-sm-2" placeholder="Pesquisar">
+          </b-form-input>
+          <b-button
+          size="sm" class="my-2 my-sm-0" type="submit" @click.prevent=search>Pesquisar
+          </b-button>
         </b-nav-form>
 
         <!--
@@ -60,6 +64,7 @@ export default {
     return {
       selectedOption: null,
       sortOptions: [
+        { text: 'Filter', value: null },
         { text: 'Todos', value: null },
         { text: 'Vistos', value: 'viewed' },
         { text: 'Por Ver', value: 'notViewed' },
@@ -69,6 +74,9 @@ export default {
   methods: {
     sortBy(sortType) {
       this.$emit('filter', sortType);
+    },
+    search(movieTitle) {
+      this.$emit('search', movieTitle.toElement.form.elements[0].value);
     },
   },
 };

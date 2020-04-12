@@ -1,15 +1,16 @@
 <template>
   <div class="container">
-    <navBar @filter="filterMovies"></navBar>
+    <navBar @filter="filterMovies" @search="searchForMovie"></navBar>
 
 
     <br />
     <b-row>
       <div class="card-single" v-for="movie in movies" :key="movie.id">
 
-        <b-card v-if="filterStatus === 'viewed' && movie.saw === true ||
-          filterStatus === 'notViewed' && movie.saw === false ||
-          filterStatus === null"
+        <b-card v-if="filterStatus === 'viewed' && movie.saw === true && movieToSearch === null ||
+          filterStatus === 'notViewed' && movie.saw === false && movieToSearch === null ||
+          filterStatus === null && movieToSearch === null ||
+          movieToSearch !== null && movie.title === movieToSearch"
           :title="movie.title | capitalize"
           :img-src="movie.url"
           img-alt="Image"
@@ -150,6 +151,7 @@ export default {
     return {
       movies: [],
       filterStatus: null,
+      movieToSearch: null,
       addMovieForm: {
         title: '',
         author: '',
@@ -299,6 +301,7 @@ export default {
       this.$forceUpdate();
     },
     filterMovies(type) {
+      this.movieToSearch = null;
       if (type === 'viewed') {
         this.filterStatus = 'viewed';
       } else {
@@ -309,6 +312,10 @@ export default {
           this.filterStatus = null;
         }
       }
+    },
+    searchForMovie(movieTitle) {
+      console.log(movieTitle.charAt(0).toUpperCase() + movieTitle.slice(1));
+      this.movieToSearch = movieTitle.charAt(0).toUpperCase() + movieTitle.slice(1);
     },
   },
   mounted() {
