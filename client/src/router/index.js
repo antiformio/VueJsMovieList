@@ -1,22 +1,22 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Ping from "@/components/Ping.vue";
-import Movies from "@/components/Movies.vue";
+import Vue from 'vue';
+import Router from 'vue-router';
+import Ping from '@/components/Ping.vue';
+import Movies from '@/components/Movies.vue';
 
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "Movies",
+      path: '/',
+      name: 'Movies',
       component: Movies,
     },
     {
-      path: "/ping",
-      name: "Ping",
+      path: '/ping',
+      name: 'Ping',
       component: Ping,
     },
   ],

@@ -5,18 +5,18 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "Ping",
+  name: 'Ping',
   data() {
     return {
-      msg: "",
+      msg: '',
     };
   },
   methods: {
     getMessage() {
-      const path = "http://localhost:5000/ping";
+      const path = '/ping';
       axios
         .get(path)
         .then((res) => {

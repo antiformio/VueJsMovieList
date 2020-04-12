@@ -181,7 +181,8 @@ export default {
   },
   methods: {
     getMovies() {
-      const path = 'http://localhost:5000/filmes';
+      // const path = 'http://localhost:5000/filmes';
+      const path = '/filmes';
       axios
         .get(path)
         .then((res) => {
@@ -193,7 +194,8 @@ export default {
         });
     },
     addMovie(payload) {
-      const path = 'http://localhost:5000/filmes';
+      // const path = 'http://localhost:5000/filmes';
+      const path = '/filmes';
       axios
         .post(path, payload)
         .then(() => {
@@ -250,7 +252,7 @@ export default {
       this.updateMovie(payload, this.editForm.id);
     },
     updateMovie(payload, movieID) {
-      const path = `http://localhost:5000/filmes/${movieID}`;
+      const path = `/filmes/${movieID}`;
       axios
         .put(path, payload)
         .then(() => {
@@ -271,7 +273,7 @@ export default {
       this.getMovies();
     },
     removeMovie(movieID) {
-      const path = `http://localhost:5000/filmes/${movieID}`;
+      const path = `/filmes/${movieID}`;
       axios
         .delete(path)
         .then(() => {

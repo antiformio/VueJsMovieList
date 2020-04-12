@@ -45,7 +45,7 @@ export default {
       this.searchTitle = encodeURIComponent(this.title.trim());
     },
     getFilme() {
-      const path = `http://www.omdbapi.com/?apikey=77ad7f8d&t=${this.searchTitle}`;
+      const path = `https://www.omdbapi.com/?apikey=77ad7f8d&t=${this.searchTitle}`;
       axios
         .get(path)
         .then((res) => {
