@@ -6,24 +6,27 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
+      <b-row>
+        <b-col cols="12" md="7">
+          <b-navbar-nav>
+            <b-button pill size="sm" variant="success" v-b-modal.movie-modal>
+            Adicionar Filme
+            </b-button>
+          </b-navbar-nav>
+        </b-col>
 
-        <b-navbar-nav>
-        <b-button pill size="sm" variant="success" v-b-modal.movie-modal>
-        Adicionar Filme
-        </b-button>
-      </b-navbar-nav>
-
-      <b-navbar-nav>
-        <b-select size="sm"
-        class="ml-5"
-        v-model="selectedOption"
-        :options="sortOptions"
-        value-field="value"
-        text-field="text"
-        @change="sortBy">
-        </b-select>
-      </b-navbar-nav>
-
+        <b-col cols="6" md="5">
+          <b-navbar-nav>
+            <b-select size="sm"
+            v-model="selectedOption"
+            :options="sortOptions"
+            value-field="value"
+            text-field="text"
+            @change="sortBy">
+            </b-select>
+          </b-navbar-nav>
+        </b-col>
+      </b-row>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
