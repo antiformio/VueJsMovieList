@@ -21,6 +21,7 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 COPY --from=build-vue /app/dist /usr/share/nginx/html
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./server/requirements.txt ./
+RUN pip install grpcio==1.28.1
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
 COPY ./server .
