@@ -1,4 +1,4 @@
-image: node:10
+image: docker:stable
 services:
   - docker:dind
 
