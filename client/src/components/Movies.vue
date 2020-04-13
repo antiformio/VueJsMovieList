@@ -325,6 +325,4 @@ export default {
   margin: 5px;
 }
 
-.card-img-top {
-}
 </style>
