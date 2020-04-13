@@ -11,6 +11,7 @@ RUN npm run build
 FROM nginx:stable-alpine as production
 WORKDIR /app
 RUN apk update && apk add --no-cache python3 && \
+    gcc && \\
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
