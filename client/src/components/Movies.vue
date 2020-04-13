@@ -165,6 +165,8 @@ export default {
       },
       message: '',
       showMessage: false,
+      apiPath: '/filmes',
+      apiPathForDebug: 'http://localhost:5000/filmes',
     };
   },
   filters: {
@@ -183,12 +185,10 @@ export default {
   },
   methods: {
     getMovies() {
-      // const path = 'http://localhost:5000/filmes';
-      const path = '/filmes';
       axios
-        .get(path)
+        .get(this.apiPath)
         .then((res) => {
-          this.movies = res.data.movies;
+          this.movies = res.data;
         })
         .catch((error) => {
           // eslint-disable-next-line
@@ -196,10 +196,8 @@ export default {
         });
     },
     addMovie(payload) {
-      // const path = 'http://localhost:5000/filmes';
-      const path = '/filmes';
       axios
-        .post(path, payload)
+        .post(this.apiPath, payload)
         .then(() => {
           this.getMovies();
           this.message = 'Filme Adicionado!';
@@ -254,9 +252,8 @@ export default {
       this.updateMovie(payload, this.editForm.id);
     },
     updateMovie(payload, movieID) {
-      const path = `/filmes/${movieID}`;
       axios
-        .put(path, payload)
+        .put(this.apiPath, { data: { payload }, movieID })
         .then(() => {
           this.getMovies();
           this.message = 'Filme actualizado!';
@@ -275,9 +272,8 @@ export default {
       this.getMovies();
     },
     removeMovie(movieID) {
-      const path = `/filmes/${movieID}`;
       axios
-        .delete(path)
+        .delete(this.apiPath, { params: { id: movieID } })
         .then(() => {
           this.getMovies();
           this.message = 'Filme Apagado!';

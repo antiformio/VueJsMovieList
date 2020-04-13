@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "vuemoviesapp",
+  "private_key_id": "d1e79e0a57237204ab627681d1d9708ad170cea6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDRSaW67hzawjoX\nbronOIevPVcPOoqDdANicEarHr63QD2EQuDhMgjw54bBim8ljbgrHJucqJ9fTIvG\n3cGIrNisQ2Ig8pTciRmXVaTwn9bx+6FwpbN34B/vgZ9wCs8npY7MVBRw4OZAdlmx\nQlA6JGgdbNSDkiJT3A1/7yDxz5vRGNqlbojH25ml2WVG7cTSg4VA7TsLaBr5PZmr\nkv1Y0FZoyg1TCZ5bY/aLfdqw4+FuL9I7L7KunBL9efnEZF1pBd+I45977UlCoBg4\nAxFg3bvL84ZueAN/VPvr1XNzth/5UKVDgD0F7ttZa2XXjW47I2ZwZBnV9YJ9w8QU\nJIh5X+SHAgMBAAECggEAQ0nphhtunYsbAFOyeE+9mEMhjZzl0fPn7qtonTYKXYLD\nBJY4FU9v/nyCIBHxQGK7VukgwxKYAxzqR+segWIJXAFiOHOmFu3hk32OxWquwiiE\nNGKiPCWMPwYvC+f9yKJ7MgjKdaxpe0pR9iL7BmaULvnBrfe7H7k9geeRcQ2t7GD7\ne8h4QWpfTc1zLe5pQ0nn8kpNGVisZBXf6XXHuYWbSogNF39xOOw1Hozt+APNTVHq\nyeLkuVwo77SXKJXX/W8ZaVQ0vvTxBgemqrmJ7wstGrRFZjfRHg2PmEnIdkSdSyru\npJrRH3eYslMxevbK3FnHdDMUnZOlgobOPAM7UREr6QKBgQDnpCkUF+ERtI2pC//K\n2qYfVJ/hQ1nCIUfbHvMu8t1/wj1B5UyMAeePDbp1X6+q6tl4PjpwEI0inyyx7PUB\nML3pfU6EauLGNvZwJv6cBvQagWRVmV+hWjGXdmYKqYGZGePtst7W0w1KvQsLd21f\n1pF8QnBJDhdKzSxhOTm9r2FljQKBgQDnS7kwxg8BlInFNDdIlzPA0o33+I8ofe3+\nOGJQ3fG1+qsTVZQ9rplz9aDvCyEGctLYWCGJkRvG+hyNERJcmvH+bFITmtfl0g3h\nbm6ApKFNiOSybJJDF8DmyYQ/o6ReDay47msSBjYP3Vcuvr3OYDytTJMVkyYLMlS5\nrU16S67bYwKBgGwyzc1I6iRvBcx0gmKqhvYTfSqnXwHCseG0Lzs6ziOjAyIIjRzI\ntvSnIPU6YL+hOztjNcCquoH1f9cMK9UGg27QzSAlHRAhFDOGw172EIdg8RDat0SS\n8J8i+r74NkThRwn8hwIpSwgiDUqp2jjt7L7x+ajmIBMciyJOrJ3hkcjxAoGARVJC\nrMWPlc+pAvvFXfJDRpVUi29pqJ8lhz3q6YW7feklAORzS5Fa2JBTrZFOUppzavfv\nBUYCZz5q9DSbpjmiMbjRWKLd9jlgg6IPaGrvFUfkEz3LEGS8Ie9fvZsUFkRO8hYy\n7PIDnfmeuZndVU8uoFoE80Bo9I4fKo8wW2j3fTUCgYEAyBsxq1Ov4RyMBH6I3f01\nwA3OwFGskq/FmYqO1WMu8pipmsT4eA5f4DpWMwKdnlm3ZF4rgUJ3BGlYpiBBGmnJ\np11WLfiI0ES7w6sXuzjc6+LaZOE31Wg9xuKOuhajISPZbrRiDKpnB6bmXkpjrm0F\nDhyCCBmIYmWRYoUGz3G/NRw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-wgp84@vuemoviesapp.iam.gserviceaccount.com",
+  "client_id": "102846667269727823959",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-wgp84%40vuemoviesapp.iam.gserviceaccount.com"
+}
