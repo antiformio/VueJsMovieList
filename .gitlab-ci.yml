@@ -15,7 +15,6 @@ docker-build:
   stage: build
   script:
     - chmod +x ./release.sh
-    - apk add linux-headers
     - apk add --no-cache curl
     - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker pull $CACHE_IMAGE:build-vue || true
