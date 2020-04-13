@@ -1,5 +1,5 @@
 # build
-FROM node:11.12.0-alpine as build-vue
+FROM node:10.13.0-alpine as build-vue
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./client/package*.json ./
