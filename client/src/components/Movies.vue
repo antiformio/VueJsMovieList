@@ -8,6 +8,7 @@
       <div class="card-single" v-for="movie in movies" :key="movie.id">
 
         <b-card v-if="checkFilters(movie)"
+          bg-variant="light"
           :title="movie.title | capitalize"
           :img-src="movie.url"
           img-alt="Image"
@@ -15,6 +16,7 @@
           tag="article"
           style="max-width: 20rem;"
           class="m-5 box"
+          v-b-toggle="'collapse-movie-'+ movie.id"
         >
 
           <b-card-text>
@@ -27,42 +29,45 @@
             </span>
           </b-card-text>
 
-          <b-card-text>
-            <div class="author mb-7">
-              <b>Director: </b>
-              <i>{{ movie.author }}</i>
+          <b-collapse :id="'collapse-movie-'+ movie.id">
+
+            <b-card-text>
+              <div class="author mb-7">
+                <b>Director: </b>
+                <i>{{ movie.author }}</i>
+              </div>
+
+              <imdb
+              :title="movie.title"
+              :id="movie.id"
+              :key="movie.url"
+              @urlForCard="urlForCard">
+              </imdb>
+            </b-card-text>
+
+            <youtube class="mb-4 mt-4" :title="movie.title"></youtube>
+
+            <netflix class="mb-4" :title="movie.title"></netflix>
+
+            <div>
+              <b-button
+              pill
+              variant="outline-secondary"
+              size="sm"
+              v-b-modal.movie-update-modal @click="editMovie(movie)"
+              >Modificar
+              </b-button>
+
+              <b-button
+              pill
+              variant="outline-danger"
+              size="sm"
+              @click="onDeleteMovie(movie)"
+              >Apagar
+              </b-button>
+
             </div>
-
-            <imdb
-            :title="movie.title"
-            :id="movie.id"
-            :key="movie.url"
-            @urlForCard="urlForCard">
-            </imdb>
-          </b-card-text>
-
-          <youtube class="mb-4 mt-4" :title="movie.title"></youtube>
-
-          <netflix class="mb-4" :title="movie.title"></netflix>
-
-          <div>
-            <b-button
-            pill
-            variant="outline-secondary"
-            size="sm"
-            v-b-modal.movie-update-modal @click="editMovie(movie)"
-            >Modificar
-            </b-button>
-
-            <b-button
-            pill
-            variant="outline-danger"
-            size="sm"
-            @click="onDeleteMovie(movie)"
-            >Apagar
-            </b-button>
-
-          </div>
+          </b-collapse>
         </b-card>
       </div>
     </b-row>
@@ -334,8 +339,6 @@ export default {
 .box {
   position: relative;
   display: inline-block;
-  width: min-content;
-  height: min-content;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
