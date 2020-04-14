@@ -7,17 +7,14 @@
     <b-row>
       <div class="card-single" v-for="movie in movies" :key="movie.id">
 
-        <b-card v-if="filterStatus === 'viewed' && movie.saw === true && movieToSearch === null ||
-          filterStatus === 'notViewed' && movie.saw === false && movieToSearch === null ||
-          filterStatus === null && movieToSearch === null ||
-          movieToSearch !== null && movie.title === movieToSearch"
+        <b-card v-if="checkFilters(movie)"
           :title="movie.title | capitalize"
           :img-src="movie.url"
           img-alt="Image"
           img-top
           tag="article"
           style="max-width: 20rem;"
-          class="ml-2 mr-2 mt-5"
+          class="m-5 box"
         >
 
           <b-card-text>
@@ -166,7 +163,7 @@ export default {
       message: '',
       showMessage: false,
       apiPath: '/filmes',
-      apiPathForDebug: 'http://localhost:5000/filmes',
+      // apiPath: 'http://localhost:5000/filmes',
     };
   },
   filters: {
@@ -313,6 +310,15 @@ export default {
       console.log(movieTitle.charAt(0).toUpperCase() + movieTitle.slice(1));
       this.movieToSearch = movieTitle.charAt(0).toUpperCase() + movieTitle.slice(1);
     },
+    checkFilters(movie) {
+      if ((this.filterStatus === 'viewed' && movie.saw === true && this.movieToSearch === null)
+          || (this.filterStatus === 'notViewed' && movie.saw === false && this.movieToSearch === null)
+          || (this.filterStatus === null && this.movieToSearch === null)
+          || (this.movieToSearch !== null && movie.title === this.movieToSearch)) {
+        return true;
+      }
+      return false;
+    },
   },
   mounted() {
     this.getMovies();
@@ -323,6 +329,43 @@ export default {
 <style scoped>
 .btn {
   margin: 5px;
+}
+
+.box {
+  position: relative;
+  display: inline-block;
+  width: min-content;
+  height: min-content;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.box::after {
+  content: "";
+  border-radius: 5px;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.box:hover {
+  -webkit-transform: scale(1.25, 1.25);
+  transform: scale(1.20, 1.20);
+}
+
+.box:hover::after {
+    opacity: 1;
 }
 
 </style>
