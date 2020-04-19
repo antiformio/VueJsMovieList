@@ -20,6 +20,12 @@
           >
 
             <b-card-text>
+              <div class="author mb-7">
+                <b><i>{{ movie.author }}</i></b>
+              </div>
+            </b-card-text>
+
+            <b-card-text>
               <span >
                 <h5 v-if="movie.saw"><b-badge pill variant="success">Visto</b-badge></h5>
                 <h5 v-else><b-badge pill variant="secondary">Por ver</b-badge></h5>
@@ -29,11 +35,6 @@
             <b-collapse :id="'collapse-movie-'+ movie.id">
 
               <b-card-text>
-                <div class="author mb-7">
-                  <b>Director: </b>
-                  <i>{{ movie.author }}</i>
-                </div>
-
                 <imdb
                 :title="movie.title"
                 :id="movie.id"
@@ -82,16 +83,6 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="form-author-group" label="Author:" label-for="form-author-input">
-          <b-form-input
-            id="form-author-input"
-            type="text"
-            v-model="addMovieForm.author"
-            required
-            placeholder="Introduz autor"
-          ></b-form-input>
-        </b-form-group>
-
         <b-form-group id="form-saw-group">
           <b-form-checkbox-group v-model="addMovieForm.saw" id="form-checks">
             <b-form-checkbox value="true">Visto?</b-form-checkbox>
@@ -102,6 +93,8 @@
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </b-modal>
+
+
     <b-modal ref="editMovieModal" id="movie-update-modal" title="Modificar" hide-footer>
       <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
         <b-form-group id="form-title-edit-group" label="Titulo:" label-for="form-title-edit-input">
@@ -114,15 +107,6 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="form-author-edit-group" label="Autor:" label-for="form-author-edit-input">
-          <b-form-input
-            id="form-author-edit-input"
-            type="text"
-            v-model="editForm.author"
-            required
-            placeholder="Introduza autor"
-          ></b-form-input>
-        </b-form-group>
 
         <b-form-group id="form-read-edit-group">
           <b-form-checkbox-group v-model="editForm.saw" id="form-checks">
@@ -154,13 +138,11 @@ export default {
       movieToSearch: null,
       addMovieForm: {
         title: '',
-        author: '',
         saw: [],
       },
       editForm: {
         id: '',
         title: '',
-        author: '',
         saw: [],
       },
       message: '',
@@ -211,11 +193,9 @@ export default {
     },
     initForm() {
       this.addMovieForm.title = '';
-      this.addMovieForm.author = '';
       this.addMovieForm.saw = [];
       this.editForm.id = '';
       this.editForm.title = '';
-      this.editForm.author = '';
       this.editForm.saw = [];
     },
     onSubmit(evt) {
@@ -225,7 +205,6 @@ export default {
       if (this.addMovieForm.saw[0]) saw = true;
       const payload = {
         title: this.addMovieForm.title,
-        author: this.addMovieForm.author,
         saw, // property shorthand
       };
       this.addMovie(payload); // chamar o metodo de adicionar filme
@@ -246,7 +225,6 @@ export default {
       if (this.editForm.saw[0]) saw = true;
       const payload = {
         title: this.editForm.title,
-        author: this.editForm.author,
         saw,
       };
       this.updateMovie(payload, this.editForm.id);
@@ -288,10 +266,11 @@ export default {
     onDeleteMovie(movie) {
       this.removeMovie(movie.id);
     },
-    urlForCard(id, urlOfCover) {
+    urlForCard(id, urlOfCover, director) {
+      console.log(id, urlOfCover);
       const index = this.movies.findIndex((x) => x.id === id);
       this.movies[index].url = urlOfCover;
-
+      this.movies[index].author = director;
       // Not the best way of doing it...
       // Force re-render whenever the :key from the v-card loop changes!
       this.$forceUpdate();

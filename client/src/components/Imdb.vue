@@ -38,6 +38,7 @@ export default {
       genero: '',
       plot: '',
       poster: '',
+      director: '',
     };
   },
   methods: {
@@ -54,6 +55,7 @@ export default {
           this.nota = res.data.imdbRating;
           this.plot = res.data.Plot;
           this.poster = res.data.Poster;
+          this.director = res.data.Director;
           this.passUrl();
         })
         .catch((error) => {
@@ -62,7 +64,7 @@ export default {
         });
     },
     passUrl() {
-      this.$emit('urlForCard', this.$props.id, this.poster);
+      this.$emit('urlForCard', this.$props.id, this.poster, this.director);
     },
   },
   computed: {
