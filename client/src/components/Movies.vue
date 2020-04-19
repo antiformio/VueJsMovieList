@@ -4,73 +4,71 @@
 
 
     <br />
-    <b-row>
-      <div class="card-single" v-for="movie in movies" :key="movie.id">
-
-        <b-card v-if="checkFilters(movie)"
-          bg-variant="light"
-          :title="movie.title | capitalize"
-          :img-src="movie.url"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem;"
-          class="m-5 box"
-          v-b-toggle="'collapse-movie-'+ movie.id"
-        >
-
-          <b-card-text>
-            <span v-if="movie.saw">
-              <h5><b-badge pill variant="success">Visto</b-badge></h5>
-            </span>
-
-            <span v-else>
-              <h5><b-badge pill variant="secondary">Por ver</b-badge></h5>
-            </span>
-          </b-card-text>
-
-          <b-collapse :id="'collapse-movie-'+ movie.id">
+    <b-container fluid>
+      <b-row>
+      <b-col class="card-single" v-for="movie in movies" :key="movie.id">
+          <b-card v-if="checkFilters(movie)"
+            bg-variant="light"
+            :title="movie.title | capitalize"
+            :img-src="movie.url"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="max-width: 20rem;"
+            class="mb-5 ml-1 mr-1 box"
+            v-b-toggle="'collapse-movie-'+ movie.id"
+          >
 
             <b-card-text>
-              <div class="author mb-7">
-                <b>Director: </b>
-                <i>{{ movie.author }}</i>
-              </div>
-
-              <imdb
-              :title="movie.title"
-              :id="movie.id"
-              :key="movie.url"
-              @urlForCard="urlForCard">
-              </imdb>
+              <span >
+                <h5 v-if="movie.saw"><b-badge pill variant="success">Visto</b-badge></h5>
+                <h5 v-else><b-badge pill variant="secondary">Por ver</b-badge></h5>
+              </span>
             </b-card-text>
 
-            <youtube class="mb-4 mt-4" :title="movie.title"></youtube>
+            <b-collapse :id="'collapse-movie-'+ movie.id">
 
-            <netflix class="mb-4" :title="movie.title"></netflix>
+              <b-card-text>
+                <div class="author mb-7">
+                  <b>Director: </b>
+                  <i>{{ movie.author }}</i>
+                </div>
 
-            <div>
-              <b-button
-              pill
-              variant="outline-secondary"
-              size="sm"
-              v-b-modal.movie-update-modal @click="editMovie(movie)"
-              >Modificar
-              </b-button>
+                <imdb
+                :title="movie.title"
+                :id="movie.id"
+                :key="movie.url"
+                @urlForCard="urlForCard">
+                </imdb>
+              </b-card-text>
 
-              <b-button
-              pill
-              variant="outline-danger"
-              size="sm"
-              @click="onDeleteMovie(movie)"
-              >Apagar
-              </b-button>
+              <youtube class="mb-4 mt-4" :title="movie.title"></youtube>
 
-            </div>
-          </b-collapse>
-        </b-card>
-      </div>
-    </b-row>
+              <netflix class="mb-4" :title="movie.title"></netflix>
+
+              <div>
+                <b-button
+                pill
+                variant="outline-secondary"
+                size="sm"
+                v-b-modal.movie-update-modal @click="editMovie(movie)"
+                >Modificar
+                </b-button>
+
+                <b-button
+                pill
+                variant="outline-danger"
+                size="sm"
+                @click="onDeleteMovie(movie)"
+                >Apagar
+                </b-button>
+
+              </div>
+            </b-collapse>
+          </b-card>
+          </b-col>
+      </b-row>
+    </b-container>
 
     <b-modal ref="addMovieModal" id="movie-modal" title="Adicionar novo filme" hide-footer>
       <b-form @submit="onSubmit" @reset="onReset" class="w-100">
@@ -336,11 +334,12 @@ export default {
   margin: 5px;
 }
 
+
 .box {
   position: relative;
   display: inline-block;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 2px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -363,8 +362,8 @@ export default {
 }
 
 .box:hover {
-  -webkit-transform: scale(1.25, 1.25);
-  transform: scale(1.20, 1.20);
+  -webkit-transform: scale(1.0, 1.0);
+  transform: scale(1.10, 1.10);
 }
 
 .box:hover::after {
